@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пример</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='first.css') }}">
+</head>
+<body>
+  <div class="login">
+    <div class="login-screen">
+      <div class="app-title">
+        <h1>Аккаунт</h1>
+      </div>
+
+      <div class="login-form">
+           <a href="{{ url_for('index') }}"> <button type="button" class="btn btn-primary  ">Зарегестрироваться</button></a>
+           <a href="{{ url_for('login') }}"> <button type="button" class="btn btn-primary btn-large btn-block">Войти</button></a>
+
+      </div>
+    </div>
+  </div>
+</body>
