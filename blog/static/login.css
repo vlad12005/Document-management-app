@@ -50,6 +50,7 @@ box-shadow: none;
 }
 
 .btn {
+  margin-top: 20px;
   border: 2px solid transparent;
   background: #3498DB;
   color: #ffffff;
@@ -63,7 +64,6 @@ box-shadow: none;
   transition: 0.25s;
   display: block;
   width: 250px;
-  margin: 0 auto;
 }
 
 .btn:hover {
