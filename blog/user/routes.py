@@ -58,7 +58,6 @@ def downolads():
             save_path = os.path.join(UPLOAD_FOLDER, filename)
             file.save(save_path)
 
-            # Сохраняем файл в базу
             user_file = UserFile(
                 filename=filename,
                 file_path=save_path,
@@ -66,17 +65,17 @@ def downolads():
             )
             db.session.add(user_file)
             db.session.commit()
-            # Даем доступ выбранным пользователям
+
             if not form.is_public.data:
                 for user_id in form.users.data:
                     db.session.add(UserFileAccess(file_id=user_file.id, user_id=user_id))
 
-                    # Создаем уведомление для каждого получателя
+
                 db.session.add(Notification(
                     user_id=user_id,
                     from_user_id=current_user.id,
                     message=f'Вам предоставлен доступ к файлу "{filename}".',
-                    type='file'  # указание типа
+                    type='file'
                 ))
 
             db.session.commit()
@@ -95,7 +94,7 @@ def uploaded_file(filename):
             directory = os.path.dirname(file_path)
             return send_from_directory(directory, filename, as_attachment=False)
         else:
-            abort(404)  # Файл не найден на диске
+            abort(404)
     else:
         abort(404)
 @users.route("/all_files")
@@ -116,13 +115,13 @@ def mark_notification_read(notification_id):
     notification.status = 'read'
     db.session.commit()
 
-    # Только если это уведомление О ФАЙЛЕ, сообщаем отправителю
+
     if notification.type == 'file' and notification.from_user_id:
         db.session.add(Notification(
             user_id=notification.from_user_id,
             from_user_id=current_user.id,
             message=f'Пользователь {current_user.username} прочитал ваш файл.',
-            type='read_receipt'  # тип уведомления
+            type='read_receipt'
         ))
         db.session.commit()
 
