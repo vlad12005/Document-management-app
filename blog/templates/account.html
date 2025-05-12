@@ -9,18 +9,55 @@
 <div class="top-bar">
     <div class="logo">Cli/WEB-приложение для документооборота</div>
     <div class="nav-buttons">
-
-
-        <button onclick="">Профиль</button>
-        <button onclick="">Выйти</button>
+<a href="{{ url_for('users.downolads')}}">
+    <button  type="button" class="btn btn-primary">Загрузить документ</button>
+    </a>
+        <a href="{{ url_for('users.account')}}">
+    <button  type="button" class="btn btn-primary">Профиль</button>
+    </a>
+        <a href="{{ url_for('users.all_files')}}">
+        <button onclick="">Доступные мне файлы на просмотор других пользователей</button>
+        </a>
     </div>
 </div>
-
  <div class="login">
      <div class="login-screen">
     <p>Рады видить вас на нашем сайте</p>
-    <p>Теперь у вас есть полный доступ к нашему сайту</p>
-          <input type="file" id="fileInput">
+         <h2>Ваши уведомления</h2>
+<ul class="list-group mb-4">
+    {% for n in notifications %}
+        <li class="list-group-item d-flex justify-content-between align-items-center
+            {% if n.status == 'unread' %}list-group-item-warning{% else %}list-group-item-light{% endif %}">
+            <div>
+                <strong>{{ n.sender.username }}</strong>: {{ n.message }}<br>
+                <small class="text-muted">{{ n.created_at.strftime('%d.%m.%Y %H:%M') }}</small>
+            </div>
+            {% if n.status == 'unread' %}
+                <form method="POST" action="{{ url_for('users.mark_notification_read', notification_id=n.id) }}">
+                    <button type="submit" class="btn btn-sm btn-outline-success">Прочитано</button>
+                </form>
+            {% else %}
+                <span class="badge badge-success">Прочитано</span>
+            {% endif %}
+        </li>
+    {% else %}
+        <li class="list-group-item">Нет уведомлений.</li>
+    {% endfor %}
+</ul>
+     <ul>
+{% for n in unread_notifications %}
+    <li>
+        {{ n.message }} — от {{ n.sender.username }} |
+        <form method="POST" action="{{ url_for('users.mark_notification_read', notification_id=n.id) }}" style="display:inline;">
+            <button type="submit">Прочитано</button>
+        </form>
+    </li>
+{% endfor %}
+</ul>
+
+
+
+
      </div>
 </div>
 </body>

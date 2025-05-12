@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='all_documents.html.css') }}">
+</head>
+</head>
+<body>
+
+
+<div class="top-bar">
+    <div class="logo">Cli/WEB-приложение для документооборота</div>
+    <div class="nav-buttons">
+    <a href="{{ url_for('users.downolads')}}">
+    <button  type="button" class="btn btn-primary">Загрузить документ</button>
+    </a>
+        <a href="{{ url_for('users.account')}}">
+    <button  type="button" class="btn btn-primary">Профиль</button>
+    </a>
+
+    </div>
+
+        </div>
+</div>
+<div class="login">
+     <div class="login-screen">
+ <h1>Все загруженные файлы</h1>
+  <ul>
+    {% for file in files %}
+      <li>
+        <a href="{{ url_for('users.uploaded_file', filename=file.filename) }}">
+          {{ file.filename }}
+        </a> - Загружено пользователем: {{ file.user.username }} ({{ file.upload_time.strftime('%Y-%m-%d %H:%M:%S') }})
+      </li>
+    {% endfor %}
+  </ul>
+
+
+
+
+
+
+
+     </div>
+</div>
+</body>
+</html>
