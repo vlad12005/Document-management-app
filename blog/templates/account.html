@@ -9,28 +9,35 @@
 <div class="top-bar">
     <div class="logo">Cli/WEB-приложение для документооборота</div>
     <div class="nav-buttons">
-<a href="{{ url_for('users.downolads')}}">
-    <button  type="button" class="btn btn-primary">Загрузить документ</button>
+<a href="{{ url_for('users.downoloads')}}">
+    <button  type="button" class="btn btn-primary">Загрузить документ на подпись</button>
+    </a>
+        <a href="{{ url_for('users.downolads_2')}}">
+    <button  type="button" class="btn btn-primary">Загрузить документ </button>
     </a>
         <a href="{{ url_for('users.account')}}">
     <button  type="button" class="btn btn-primary">Профиль</button>
     </a>
         <a href="{{ url_for('users.all_files')}}">
-        <button onclick="">Доступные мне файлы на просмотор других пользователей</button>
+        <button onclick="">Список документов на подпись</button>
+        </a>
+        <a href="{{ url_for('users.all_uploaded_files')}}">
+        <button onclick="">Список всех загруженных документов</button>
         </a>
     </div>
 </div>
  <div class="login">
      <div class="login-screen">
+     <h1>
+     {{ current_user.username }}</h1>
     <p>Рады видить вас на нашем сайте</p>
-         <h2>Ваши уведомления</h2>
+         <p>Ваши уведомления</p>
 <ul class="list-group mb-4">
     {% for n in notifications %}
         <li class="list-group-item d-flex justify-content-between align-items-center
             {% if n.status == 'unread' %}list-group-item-warning{% else %}list-group-item-light{% endif %}">
             <div>
                 <strong>{{ n.sender.username }}</strong>: {{ n.message }}<br>
-                <small class="text-muted">{{ n.created_at.strftime('%d.%m.%Y %H:%M') }}</small>
             </div>
             {% if n.status == 'unread' %}
                 <form method="POST" action="{{ url_for('users.mark_notification_read', notification_id=n.id) }}">
@@ -60,5 +67,17 @@
 
      </div>
 </div>
+
+ <script>
+    document.addEventListener('keydown', function(event) {
+        if (event.key.toLowerCase() === 'h' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+            window.location.href = "/help";
+        }
+    });
+    </script>
+
+
+
+
 </body>
 </html>

@@ -22,7 +22,7 @@ padding: 50px;
 }
 .login {
 margin: 20px auto;
-width: 300px;
+width: 450px;
 }
 .login-screen {
 background-color: #FFF;
@@ -56,27 +56,33 @@ border-radius: 5px
     margin-right: 20px;
 }
 
-.nav-buttons button {
-    margin-right: 10px;
-    padding: 8px 14px;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-right: 20px;
+    white-space: nowrap;
 }
 
-.nav-buttons button:hover {
-    background-color: #45a049;
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
 }
-.btn btn-primary{
-    margin-right: 10px;
+
+.nav-btn {
     padding: 8px 14px;
     border: none;
-    background-color: #4CAF50;
+
     color: white;
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    transition: background-color 0.3s;
 }
